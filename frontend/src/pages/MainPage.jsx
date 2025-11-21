@@ -2,32 +2,25 @@ import { Pencil } from "lucide-react";
 import { useContext, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import InvoiceForm from "../components/InvoiceForm";
+import TemplateGrid from "../components/TemplateGrid";
 
 const MainPage = () => {
   const { invoiceTitle, setInvoiceTitle } = useContext(AppContext);
-
   const [isEditingTitle, setIsEditingTitle] = useState(false);
 
   const handleTitleChange = (e) => {
     e.preventDefault();
-
-    const newTitle = e.target.value;
-    setInvoiceTitle(newTitle);
+    setInvoiceTitle(e.target.value);
   };
 
-  const handleTitleEdit = () => {
-    setIsEditingTitle(true);
-  };
-
-  const handleTitleBlur = () => {
-    setIsEditingTitle(false);
-  };
+  const handleTitleEdit = () => setIsEditingTitle(true);
+  const handleTitleBlur = () => setIsEditingTitle(false);
 
   return (
-    <div className="min-h-screen py-4">
-      <div className="container max-w-6xl mx-auto">
+    <div className="min-h-screen py-6 bg-slate-50">
+      <div className="container max-w-7xl mx-auto px-4">
         {/* TITLE */}
-        <div className="border rounded-lg shadow-sm p-4 mb-6 bg-white">
+        <div className="bg-white shadow-sm border rounded-xl p-5 mb-8">
           <div className="flex items-center">
             {isEditingTitle ? (
               <input
@@ -40,7 +33,7 @@ const MainPage = () => {
               />
             ) : (
               <>
-                <h5 className="mb-0 me-2 text-lg font-semibold text-slate-800">
+                <h5 className="text-xl font-semibold text-slate-800">
                   {invoiceTitle}
                 </h5>
 
@@ -48,24 +41,33 @@ const MainPage = () => {
                   className="p-2 rounded-full hover:bg-blue-50 transition border border-transparent"
                   onClick={handleTitleEdit}
                 >
-                  <Pencil className="text-blue-600 cursor-pointer" size={20} />
+                  <Pencil className="text-blue-600" size={20} />
                 </button>
               </>
             )}
           </div>
         </div>
 
-        {/* INVOICE FORM and TEMPLATE GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* INVOICE */}
-          <div className="">
-            <div className="border rounded shadow-sm p-4">
+        {/* TWO-COLUMN LAYOUT */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* LEFT — FORM */}
+          <div className="bg-white border rounded-xl shadow-sm p-5">
+            <h4 className="text-lg font-semibold text-slate-800 mb-1">
+              Invoice Form
+            </h4>
+            <div className="pr-2">
               <InvoiceForm />
             </div>
           </div>
-          {/* TEMPLATE GRID */}
-          <div className="">
-            <div className="border rounded shadow-sm p-4">grid</div>
+
+          {/* RIGHT — TEMPLATE GRID */}
+          <div className="bg-white border rounded-xl shadow-sm p-5">
+            <h4 className="text-lg font-semibold text-slate-800 mb-1">
+              Templates
+            </h4>
+            <div className="pr-2">
+              <TemplateGrid />
+            </div>
           </div>
         </div>
       </div>

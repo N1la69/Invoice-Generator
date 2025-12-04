@@ -1,11 +1,13 @@
 import { Pencil } from "lucide-react";
 import { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import InvoiceForm from "../components/InvoiceForm";
 import TemplateGrid from "../components/TemplateGrid";
 
 const MainPage = () => {
+  const navigate = useNavigate();
   const {
     invoiceTitle,
     setInvoiceTitle,
@@ -36,6 +38,7 @@ const MainPage = () => {
     }
 
     setSelectedTemplate(templateId);
+    navigate("/preview");
   };
 
   const handleTitleEdit = () => setIsEditingTitle(true);

@@ -1,16 +1,41 @@
 import { Pencil } from "lucide-react";
 import { useContext, useState } from "react";
+import { toast } from "react-hot-toast";
 import { AppContext } from "../context/AppContext";
 import InvoiceForm from "../components/InvoiceForm";
 import TemplateGrid from "../components/TemplateGrid";
 
 const MainPage = () => {
-  const { invoiceTitle, setInvoiceTitle } = useContext(AppContext);
+  const {
+    invoiceTitle,
+    setInvoiceTitle,
+    invoiceData,
+    setInvoiceData,
+    setSelectedTemplate,
+  } = useContext(AppContext);
   const [isEditingTitle, setIsEditingTitle] = useState(false);
 
   const handleTitleChange = (e) => {
     e.preventDefault();
     setInvoiceTitle(e.target.value);
+    setInvoiceData((prev) => ({
+      ...prev,
+      title: e.target.value,
+    }));
+  };
+
+  const handleTemplateClick = (templateId) => {
+    const hasInvalidItem = invoiceData.items.some(
+      (item) => !item.name && !item.quantity && !item.amount
+    );
+    if (hasInvalidItem) {
+      toast.error(
+        "Please fill in all item details before changing the template."
+      );
+      return;
+    }
+
+    setSelectedTemplate(templateId);
   };
 
   const handleTitleEdit = () => setIsEditingTitle(true);
@@ -66,7 +91,7 @@ const MainPage = () => {
               Templates
             </h4>
             <div className="pr-2">
-              <TemplateGrid />
+              <TemplateGrid onTemplateClick={handleTemplateClick} />
             </div>
           </div>
         </div>

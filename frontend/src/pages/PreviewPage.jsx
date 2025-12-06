@@ -1,10 +1,11 @@
 import { useContext, useRef } from "react";
 import { templates } from "../assets";
 import { AppContext } from "../context/AppContext";
+import InvoicePreview from "../components/InvoicePreview";
 
 const PreviewPage = () => {
   const previewRef = useRef();
-  const { selectedTemplate } = useContext(AppContext);
+  const { selectedTemplate, invoiceData } = useContext(AppContext);
 
   return (
     <div className="container mx-auto min-h-screen flex flex-col p-4 space-y-6">
@@ -52,9 +53,10 @@ const PreviewPage = () => {
           ref={previewRef}
           className="w-full max-w-4xl bg-white border border-slate-200 rounded-xl shadow-inner p-6"
         >
-          <div className="w-full min-h-[110vh] overflow-auto bg-slate-50 rounded-md flex items-center justify-center text-slate-400">
-            Preview PDF
-          </div>
+          <InvoicePreview
+            invoiceData={invoiceData}
+            template={selectedTemplate}
+          />
         </div>
       </div>
     </div>

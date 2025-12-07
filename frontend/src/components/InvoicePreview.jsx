@@ -1,13 +1,16 @@
 import { forwardRef } from "react";
 import { formatInvoiceData } from "../util/formatInvoiceData";
-import Template1 from "../templates/Template1/template1";
+import { templateComponents } from "../util/invoiceTemplates";
 
 const InvoicePreview = forwardRef(({ invoiceData, template }, ref) => {
-  const fromattedData = formatInvoiceData(invoiceData);
+  const formattedData = formatInvoiceData(invoiceData);
+
+  const SelectedTemplate =
+    templateComponents[template] || templateComponents["template1"];
 
   return (
     <div ref={ref} className="container p-2 overflow-x-auto">
-      <Template1 data={fromattedData} />
+      <SelectedTemplate data={formattedData} />
     </div>
   );
 });

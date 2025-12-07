@@ -5,7 +5,8 @@ import InvoicePreview from "../components/InvoicePreview";
 
 const PreviewPage = () => {
   const previewRef = useRef();
-  const { selectedTemplate, invoiceData } = useContext(AppContext);
+  const { selectedTemplate, setSelectedTemplate, invoiceData } =
+    useContext(AppContext);
 
   return (
     <div className="container mx-auto min-h-screen flex flex-col p-4 space-y-6">
@@ -17,10 +18,11 @@ const PreviewPage = () => {
             <button
               key={template.id}
               className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-shadow ${
-                selectedTemplate === template.id
+                selectedTemplate === `template${template.id}`
                   ? "bg-blue-600 text-white shadow"
                   : "bg-white text-slate-700 border border-slate-200 hover:shadow-sm"
               }`}
+              onClick={() => setSelectedTemplate(`template${template.id}`)}
             >
               {template.label}
             </button>

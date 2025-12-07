@@ -8,7 +8,7 @@ const TemplateGrid = ({ onTemplateClick }) => {
           <div
             className="cursor-pointer bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition hover:-translate-y-1"
             title={template.label}
-            onClick={() => onTemplateClick(template.id)}
+            onClick={() => onTemplateClick(`template${template.id}`)}
           >
             <img
               src={template.image}

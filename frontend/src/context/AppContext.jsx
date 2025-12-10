@@ -28,7 +28,10 @@ export const AppContextProvider = ({ children }) => {
   const [invoiceData, setInvoiceData] = useState(initialInvoiceData);
   const [selectedTemplate, setSelectedTemplate] = useState("template1");
 
+  const baseUrl = "http://localhost:8080/api";
+
   const contextValue = {
+    baseUrl,
     invoiceTitle,
     setInvoiceTitle,
     invoiceData,

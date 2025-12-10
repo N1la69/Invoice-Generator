@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class InvoiceController {
     private final InvoiceService invoiceService;
 
-    @PostMapping("path")
+    @PostMapping
     public ResponseEntity<Invoice> saveInvoice(@RequestBody Invoice invoice) {
         return ResponseEntity.ok(invoiceService.saveInvoice(invoice));
     }

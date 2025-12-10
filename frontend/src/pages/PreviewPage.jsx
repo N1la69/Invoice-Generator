@@ -1,12 +1,40 @@
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import { templates } from "../assets";
 import { AppContext } from "../context/AppContext";
 import InvoicePreview from "../components/InvoicePreview";
+import { saveInvoice } from "../service/InvoiceService";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { Loader2 } from "lucide-react";
 
 const PreviewPage = () => {
   const previewRef = useRef();
-  const { selectedTemplate, setSelectedTemplate, invoiceData } =
+  const { selectedTemplate, setSelectedTemplate, invoiceData, baseUrl } =
     useContext(AppContext);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSaveAndExit = async () => {
+    try {
+      setLoading(true);
+      const payload = {
+        ...invoiceData,
+        template: selectedTemplate,
+      };
+      const response = await saveInvoice(baseUrl, payload);
+      if (response.status === 200) {
+        toast.success("Invoice saved successfully");
+        navigate("/dashboard");
+      } else {
+        toast.error("Something went wrong while saving the invoice.");
+      }
+    } catch (error) {
+      console.error("Error saving invoice:", error.message);
+      toast.error("Error saving invoice. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="container mx-auto min-h-screen flex flex-col p-4 space-y-6">
@@ -31,8 +59,13 @@ const PreviewPage = () => {
 
         {/* LIST OF ACTION BUTTONS */}
         <div className="flex flex-wrap justify-center gap-3">
-          <button className="px-4 py-2 bg-white text-slate-700 border border-slate-200 rounded-lg hover:shadow transition">
-            Save and Exit
+          <button
+            onClick={handleSaveAndExit}
+            disabled={loading}
+            className="px-4 py-2 bg-white text-slate-700 border border-slate-200 rounded-lg hover:shadow transition"
+          >
+            {loading && <Loader2 className="ml-2 animate-spin" size={18} />}
+            {loading ? "Saving..." : "Save & Exit"}
           </button>
           <button className="px-4 py-2 bg-red-50 text-red-600 border border-red-100 rounded-lg hover:bg-red-100 transition">
             Delete Invoice

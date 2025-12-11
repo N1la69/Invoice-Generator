@@ -6,6 +6,9 @@ import { saveInvoice } from "../service/InvoiceService";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
+import html2canvas from "html2canvas";
+import { toPng } from "html-to-image";
+import { uploadInvoiceThumbnail } from "../service/CloudinaryService";
 
 const PreviewPage = () => {
   const previewRef = useRef();
@@ -17,8 +20,21 @@ const PreviewPage = () => {
   const handleSaveAndExit = async () => {
     try {
       setLoading(true);
+
+      if (!previewRef.current) {
+        throw new Error("Preview element not found");
+      }
+
+      const imgData = await toPng(previewRef.current, {
+        cacheBust: true,
+        backgroundColor: "#ffffff",
+        pixelRatio: 2,
+      });
+      const thumbnailUrl = await uploadInvoiceThumbnail(imgData);
+
       const payload = {
         ...invoiceData,
+        thumbnailUrl,
         template: selectedTemplate,
       };
       const response = await saveInvoice(baseUrl, payload);
@@ -30,7 +46,17 @@ const PreviewPage = () => {
       }
     } catch (error) {
       console.error("Error saving invoice:", error.message);
-      toast.error("Error saving invoice. Please try again.");
+      if (
+        error &&
+        error.message &&
+        error.message.toLowerCase().includes("tainted")
+      ) {
+        toast.error(
+          "Cannot capture preview due to cross-origin images. Serve images with CORS or host them locally."
+        );
+      } else {
+        toast.error("Error saving invoice. Please try again.");
+      }
     } finally {
       setLoading(false);
     }

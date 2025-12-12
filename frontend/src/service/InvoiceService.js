@@ -7,3 +7,7 @@ export const saveInvoice = async (baseUrl, payload) => {
 export const getAllInvoices = async (baseUrl) => {
   return axios.get(`${baseUrl}/invoices`);
 };
+
+export const deleteInvoice = async (baseUrl, id) => {
+  return axios.delete(`${baseUrl}/invoices/${id}`);
+};

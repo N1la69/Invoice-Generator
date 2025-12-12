@@ -2,7 +2,7 @@ import { useContext, useRef, useState } from "react";
 import { templates } from "../assets";
 import { AppContext } from "../context/AppContext";
 import InvoicePreview from "../components/InvoicePreview";
-import { saveInvoice } from "../service/InvoiceService";
+import { deleteInvoice, saveInvoice } from "../service/InvoiceService";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
@@ -62,6 +62,20 @@ const PreviewPage = () => {
     }
   };
 
+  const handleDeleteInvoice = async () => {
+    try {
+      const res = await deleteInvoice(baseUrl, invoiceData.id);
+      if (res.status === 200) {
+        toast.success("Invoice deleted successfully");
+        navigate("/dashboard");
+      } else {
+        toast.error("Error deleting invoice. Please try again.");
+      }
+    } catch (error) {
+      toast.error("Error deleting invoice. Please try again.", error.message);
+    }
+  };
+
   return (
     <div className="container mx-auto min-h-screen flex flex-col p-4 space-y-6">
       {/* CTA BUTTONS */}
@@ -93,9 +107,14 @@ const PreviewPage = () => {
             {loading && <Loader2 className="ml-2 animate-spin" size={18} />}
             {loading ? "Saving..." : "Save & Exit"}
           </button>
-          <button className="px-4 py-2 bg-red-50 text-red-600 border border-red-100 rounded-lg hover:bg-red-100 transition">
-            Delete Invoice
-          </button>
+          {invoiceData.id && (
+            <button
+              onClick={handleDeleteInvoice}
+              className="px-4 py-2 bg-red-50 text-red-600 border border-red-100 rounded-lg hover:bg-red-100 transition"
+            >
+              Delete Invoice
+            </button>
+          )}
           <button className="px-4 py-2 bg-white text-slate-700 border border-slate-200 rounded-lg hover:shadow transition">
             Back to Dashboard
           </button>

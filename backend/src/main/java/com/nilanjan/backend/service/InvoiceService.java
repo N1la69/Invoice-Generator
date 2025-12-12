@@ -21,4 +21,9 @@ public class InvoiceService {
     public List<Invoice> fetchInvoices(){
         return invoiceRepository.findAll();
     }
+
+    public void deleteInvoice(String id) {
+        Invoice existing = invoiceRepository.findById(id).orElseThrow(() -> new RuntimeException("Invoice not found: "+ id));
+        invoiceRepository.delete(existing);
+    }
 }

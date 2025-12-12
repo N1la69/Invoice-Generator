@@ -1,5 +1,7 @@
 package com.nilanjan.backend.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.nilanjan.backend.entity.Invoice;
@@ -14,5 +16,9 @@ public class InvoiceService {
 
     public Invoice saveInvoice(Invoice invoice) {
         return invoiceRepository.save(invoice);
+    }
+
+    public List<Invoice> fetchInvoices(){
+        return invoiceRepository.findAll();
     }
 }

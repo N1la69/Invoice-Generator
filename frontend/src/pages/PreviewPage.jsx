@@ -6,16 +6,19 @@ import { deleteInvoice, saveInvoice } from "../service/InvoiceService";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
-import html2canvas from "html2canvas";
 import { toPng } from "html-to-image";
 import { uploadInvoiceThumbnail } from "../service/CloudinaryService";
+import { generatePdfFromElement } from "../util/pdfUtils";
 
 const PreviewPage = () => {
   const previewRef = useRef();
+  const navigate = useNavigate();
+
   const { selectedTemplate, setSelectedTemplate, invoiceData, baseUrl } =
     useContext(AppContext);
+
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const [downloading, setDownloading] = useState(false);
 
   const handleSaveAndExit = async () => {
     try {
@@ -76,6 +79,23 @@ const PreviewPage = () => {
     }
   };
 
+  const handleDownloadPdf = async () => {
+    if (!previewRef.current) return;
+
+    try {
+      setDownloading(true);
+      await generatePdfFromElement(
+        previewRef.current,
+        `invoice_${Date.now()}.pdf`
+      );
+    } catch (error) {
+      console.error("PDF Generation Error:", error);
+      toast.error("Error generating PDF. Please try again.");
+    } finally {
+      setDownloading(false);
+    }
+  };
+
   return (
     <div className="container mx-auto min-h-screen flex flex-col p-4 space-y-6">
       {/* CTA BUTTONS */}
@@ -121,8 +141,12 @@ const PreviewPage = () => {
           <button className="px-4 py-2 bg-blue-50 text-blue-700 border border-blue-100 rounded-lg hover:bg-blue-100 transition">
             Send Email
           </button>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-            Download PDF
+          <button
+            onClick={handleDownloadPdf}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+          >
+            {loading && <Loader2 className="ml-2 animate-spin" size={18} />}
+            {downloading ? "Downloading..." : "Download PDF"}
           </button>
         </div>
       </div>

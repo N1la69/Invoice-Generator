@@ -11,3 +11,11 @@ export const getAllInvoices = async (baseUrl) => {
 export const deleteInvoice = async (baseUrl, id) => {
   return axios.delete(`${baseUrl}/invoices/${id}`);
 };
+
+export const sendInvoice = (baseUrl, formData) => {
+  return axios.post(`${baseUrl}/invoices/sendinvoice`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};

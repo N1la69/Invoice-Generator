@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu } from "lucide-react";
+import { SignedIn, SignedOut, useClerk, UserButton } from "@clerk/clerk-react";
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
+  const { openSignIn } = useClerk();
+
+  const openLogin = () => {
+    openSignIn({});
+  };
 
   return (
     <nav className="h-16 px-4 flex items-center justify-between border-b border-slate-200 shadow-sm bg-white">
@@ -64,20 +70,29 @@ const NavBar = () => {
           Home
         </Link>
 
-        <Link
-          to="/dashboard"
-          className="text-slate-700 hover:text-blue-600 font-medium transition"
-        >
-          Dashboard
-        </Link>
+        <SignedIn>
+          <Link
+            to="/dashboard"
+            className="text-slate-700 hover:text-blue-600 font-medium transition"
+          >
+            Dashboard
+          </Link>
 
-        <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium">
-          Generate
-        </button>
+          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium">
+            Generate
+          </button>
 
-        <button className="px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition font-medium">
-          Login/SignUp
-        </button>
+          <UserButton />
+        </SignedIn>
+
+        <SignedOut>
+          <button
+            onClick={openLogin}
+            className="px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition font-medium"
+          >
+            Login/SignUp
+          </button>
+        </SignedOut>
       </div>
     </nav>
   );

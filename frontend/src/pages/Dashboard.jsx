@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 import { Plus } from "lucide-react";
 import { formatDate } from "../util/formatInvoiceData";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@clerk/clerk-react";
 
 const Dashboard = () => {
   const [invoices, setInvoices] = useState([]);
@@ -16,11 +17,13 @@ const Dashboard = () => {
     initialInvoiceData,
   } = useContext(AppContext);
   const navigate = useNavigate();
+  const { getToken } = useAuth();
 
   useEffect(() => {
     const fetchInvoices = async () => {
       try {
-        const res = await getAllInvoices(baseUrl);
+        const token = await getToken();
+        const res = await getAllInvoices(baseUrl, token);
         setInvoices(res.data);
       } catch (error) {
         toast.error("Failed to fetch invoices");

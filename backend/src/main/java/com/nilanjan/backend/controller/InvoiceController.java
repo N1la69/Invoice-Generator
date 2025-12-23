@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.nilanjan.backend.entity.Invoice;
 import com.nilanjan.backend.service.EmailService;
@@ -34,14 +36,17 @@ public class InvoiceController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Invoice>> fetchInvoices() {
-        return ResponseEntity.ok(invoiceService.fetchInvoices());
+    public ResponseEntity<List<Invoice>> fetchInvoices(Authentication authentication) {
+        return ResponseEntity.ok(invoiceService.fetchInvoices(authentication.getName()));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteInvoice(@PathVariable String id) {
-        invoiceService.deleteInvoice(id);
+    public ResponseEntity<Void> deleteInvoice(@PathVariable String id, Authentication authentication) {
+        if(authentication.getName() != null){
+            invoiceService.deleteInvoice(id, authentication.getName());
         return ResponseEntity.ok().build();
+        }
+        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User does not have permission");
     }
 
     @PostMapping(value = "/sendinvoice", consumes = "multipart/form-data")

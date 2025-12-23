@@ -18,12 +18,12 @@ public class InvoiceService {
         return invoiceRepository.save(invoice);
     }
 
-    public List<Invoice> fetchInvoices(){
-        return invoiceRepository.findAll();
+    public List<Invoice> fetchInvoices(String clerkId) {
+        return invoiceRepository.findByClerkId(clerkId);
     }
 
-    public void deleteInvoice(String id) {
-        Invoice existing = invoiceRepository.findById(id).orElseThrow(() -> new RuntimeException("Invoice not found: "+ id));
+    public void deleteInvoice(String id, String clerkId) {
+        Invoice existing = invoiceRepository.findByClerkIdAndId(clerkId, id).orElseThrow(() -> new RuntimeException("Invoice not found: "+ id));
         invoiceRepository.delete(existing);
     }
 }

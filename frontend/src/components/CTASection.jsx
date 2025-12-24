@@ -1,4 +1,12 @@
+import { useNavigate } from "react-router-dom";
+
 const CTASection = () => {
+  const navigate = useNavigate();
+
+  const handleGenerateClick = () => {
+    navigate("/generate");
+  };
+
   return (
     <section className="py-16 bg-blue-500 text-white">
       <div className="container mx-auto px-6 text-center max-w-3xl space-y-6">
@@ -12,7 +20,10 @@ const CTASection = () => {
           fast, easy, and effective!
         </p>
 
-        <button className="px-8 py-3 bg-white text-blue-600 font-semibold rounded-xl shadow hover:bg-blue-50 transition">
+        <button
+          onClick={handleGenerateClick}
+          className="px-8 py-3 bg-white text-blue-600 font-semibold rounded-xl shadow hover:bg-blue-50 transition"
+        >
           Start Generating Invoices Now
         </button>
 

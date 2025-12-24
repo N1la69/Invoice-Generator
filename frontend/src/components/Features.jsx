@@ -1,3 +1,5 @@
+import { assets } from "../assets";
+
 const Features = () => {
   return (
     <section className="py-16 bg-white">
@@ -9,8 +11,12 @@ const Features = () => {
         {/* Feature 1 */}
         <div className="flex flex-col lg:flex-row items-center gap-10 mb-16">
           <div className="w-full lg:w-1/2">
-            <div className="h-60 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 text-6xl font-bold shadow-inner">
-              📝
+            <div className="h-60 bg-slate-100 rounded-xl flex items-center justify-center shadow-inner overflow-hidden">
+              <img
+                src={assets.feat1}
+                alt="Invoice placeholder"
+                className="object-cover"
+              />
             </div>
           </div>
 
@@ -34,8 +40,12 @@ const Features = () => {
         {/* Feature 2 */}
         <div className="flex flex-col lg:flex-row-reverse items-center gap-10 mb-16">
           <div className="w-full lg:w-1/2">
-            <div className="h-60 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 text-6xl font-bold shadow-inner">
-              📊
+            <div className="h-60 bg-slate-100 rounded-xl flex items-center justify-center shadow-inner overflow-hidden">
+              <img
+                src={assets.feat2}
+                alt="Invoice placeholder"
+                className="object-cover"
+              />
             </div>
           </div>
 
@@ -58,8 +68,12 @@ const Features = () => {
         {/* Feature 3 */}
         <div className="flex flex-col lg:flex-row items-center gap-10 mb-16">
           <div className="w-full lg:w-1/2">
-            <div className="h-60 bg-green-100 rounded-xl flex items-center justify-center text-green-600 text-6xl font-bold shadow-inner">
-              👀
+            <div className="h-60 bg-slate-100 rounded-xl flex items-center justify-center shadow-inner overflow-hidden">
+              <img
+                src={assets.feat3}
+                alt="Invoice placeholder"
+                className="object-cover"
+              />
             </div>
           </div>
 
@@ -82,8 +96,12 @@ const Features = () => {
         {/* Feature 4 */}
         <div className="flex flex-col lg:flex-row-reverse items-center gap-10">
           <div className="w-full lg:w-1/2">
-            <div className="h-60 bg-red-100 rounded-xl flex items-center justify-center text-red-600 text-6xl font-bold shadow-inner">
-              📩
+            <div className="h-60 bg-slate-100 rounded-xl flex items-center justify-center shadow-inner overflow-hidden">
+              <img
+                src={assets.feat4}
+                alt="Invoice placeholder"
+                className="object-cover"
+              />
             </div>
           </div>
 

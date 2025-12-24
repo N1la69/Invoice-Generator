@@ -107,7 +107,7 @@ const Dashboard = () => {
 
                 <div className="flex items-center justify-between text-sm text-slate-500">
                   <span>Updated</span>
-                  <span>{formatDate(invoice.lastUpdatedAt)}</span>
+                  <span>{formatDate(invoice.createdAt)}</span>
                 </div>
               </div>
             </div>

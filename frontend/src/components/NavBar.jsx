@@ -1,14 +1,28 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Menu } from "lucide-react";
 import { SignedIn, SignedOut, useClerk, UserButton } from "@clerk/clerk-react";
+import { initialInvoiceData } from "../context/AppContext.jsx";
+import { AppContext } from "../context/AppContext.jsx";
 
 const NavBar = () => {
-  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   const { openSignIn } = useClerk();
+  const { setInvoiceData, setSelectedTemplate, setInvoiceTitle } =
+    useContext(AppContext);
+
+  const [open, setOpen] = useState(false);
 
   const openLogin = () => {
     openSignIn({});
+  };
+
+  const handleGenerateClick = () => {
+    setInvoiceData(initialInvoiceData);
+    setSelectedTemplate("template1");
+    setInvoiceTitle("New Invoice");
+
+    navigate("/generate");
   };
 
   return (
@@ -51,7 +65,10 @@ const NavBar = () => {
             Dashboard
           </Link>
 
-          <button className="text-left px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium">
+          <button
+            onClick={handleGenerateClick}
+            className="text-left px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
+          >
             Generate
           </button>
 
@@ -78,7 +95,10 @@ const NavBar = () => {
             Dashboard
           </Link>
 
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium">
+          <button
+            onClick={handleGenerateClick}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
+          >
             Generate
           </button>
 

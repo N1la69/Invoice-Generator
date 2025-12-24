@@ -1,8 +1,11 @@
 const Template1 = ({ data }) => {
   return (
-    <div className="mx-auto my-4 px-4 py-5 w-full max-w-4xl bg-white border border-orange-100 rounded-lg shadow-sm">
+    <div
+      className="mx-auto my-0 bg-white border border-orange-100 shadow-sm print:shadow-none"
+      style={{ width: "210mm", minHeight: "297mm", padding: "16mm" }}
+    >
       {/* HEADER */}
-      <div className="mb-4 flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+      <div className="mb-4 flex flex-col md:flex-row md:items-start md:justify-between gap-6 break-inside-avoid">
         <div className="flex items-start gap-4">
           {data.companyLogo && (
             <div className="shrink-0">
@@ -53,7 +56,7 @@ const Template1 = ({ data }) => {
       <hr className="my-3 border-orange-200" />
 
       {/* BILLING */}
-      <div className="mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="mb-4 break-inside-avoid grid grid-cols-1 md:grid-cols-2 gap-4">
         {data.shippingName && data.shippingPhone && data.shippingAddress && (
           <div>
             <div className="p-3 rounded bg-orange-50 border border-orange-100">
@@ -91,9 +94,9 @@ const Template1 = ({ data }) => {
 
       {/* ITEMS */}
       <div className="mb-4 overflow-x-auto">
-        <table className="w-full table-fixed border-collapse">
+        <table className="w-full table-fixed border-collapse break-inside-auto">
           <thead>
-            <tr className="bg-orange-100">
+            <tr className="bg-orange-100 break-inside-avoid">
               <th className="p-3 text-left text-sm text-slate-700">
                 Item # / Item description
               </th>
@@ -111,10 +114,7 @@ const Template1 = ({ data }) => {
 
           <tbody>
             {data.items.map((item, index) => (
-              <tr
-                key={index}
-                className={index % 2 === 0 ? "bg-white" : "bg-white"}
-              >
+              <tr key={index} className="bg-white break-inside-avoid">
                 <td className="p-3 align-top text-sm text-slate-700">
                   {item.name}
                 </td>
@@ -136,7 +136,7 @@ const Template1 = ({ data }) => {
       </div>
 
       {/* TOTALS */}
-      <div className="mb-4">
+      <div className="mb-4 break-inside-avoid">
         <div className="flex justify-end">
           <div className="p-3 max-w-[320px] w-full bg-orange-50 border border-orange-100 rounded-md">
             <div className="flex justify-between mb-2 text-sm text-slate-700">
@@ -170,7 +170,7 @@ const Template1 = ({ data }) => {
 
       {/* BANK ACC */}
       {(data.accountName || data.accountNumber || data.accountIfscCode) && (
-        <div className="mt-4">
+        <div className="mt-4 break-inside-avoid">
           <h3 className="mb-2 text-sm font-semibold text-orange-700">
             Bank Account Details
           </h3>

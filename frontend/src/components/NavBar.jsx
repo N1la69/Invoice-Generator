@@ -4,6 +4,7 @@ import { Menu } from "lucide-react";
 import { SignedIn, SignedOut, useClerk, UserButton } from "@clerk/clerk-react";
 import { initialInvoiceData } from "../context/AppContext.jsx";
 import { AppContext } from "../context/AppContext.jsx";
+import { assets } from "../assets/index.js";
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const NavBar = () => {
       {/* LEFT */}
       <div className="flex items-center space-x-2">
         <Link className="flex space-x-2 items-center" to="/">
-          <img src="" alt="logo" height={48} width={48} />
+          <img src={assets.logo} alt="logo" height={48} width={48} />
           <span className="text-xl text-blue-600 font-semibold tracking-tight">
             QuickInvoice
           </span>

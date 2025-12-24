@@ -1,4 +1,10 @@
-export const assets = {};
+import logo from "../assets/logo.jpeg";
+import placeholder from "../assets/placeholder.png";
+
+export const assets = {
+  logo,
+  placeholder,
+};
 
 export const templates = [
   { id: 1, label: "Template1", image: "" },

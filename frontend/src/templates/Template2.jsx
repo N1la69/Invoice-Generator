@@ -1,8 +1,11 @@
 const Template2 = ({ data }) => {
   return (
-    <div className="mx-auto my-6 px-4 py-6 w-full max-w-5xl bg-white rounded-lg shadow-md border border-slate-100">
+    <div
+      className="mx-auto my-0 bg-white shadow-md border border-slate-100 print:shadow-none"
+      style={{ width: "210mm", minHeight: "297mm", padding: "16mm" }}
+    >
       {/* TOP BAR */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+      <div className="mb-6 break-inside-avoid flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div className="flex items-start gap-4">
           {data.companyLogo && (
             <img
@@ -88,7 +91,7 @@ const Template2 = ({ data }) => {
           </div>
 
           {/* ITEMS - compact list view */}
-          <div className="bg-white border border-slate-100 rounded-md overflow-hidden">
+          <div className="bg-white border border-slate-100 rounded-md overflow-hidden break-inside-auto">
             <div className="px-4 py-3 bg-teal-50 border-b border-slate-100">
               <div className="text-sm font-semibold text-teal-700">Items</div>
             </div>
@@ -100,7 +103,7 @@ const Template2 = ({ data }) => {
                 return (
                   <div
                     key={index}
-                    className="px-4 py-3 grid grid-cols-12 gap-2 items-center"
+                    className="px-4 py-3 grid grid-cols-12 gap-2 items-center break-inside-avoid"
                   >
                     <div className="col-span-6 text-sm text-slate-800">
                       {item.name}
@@ -124,7 +127,7 @@ const Template2 = ({ data }) => {
 
           {/* NOTES */}
           {data.notes && (
-            <div className="mt-4 p-4 bg-slate-50 border border-slate-100 rounded-md">
+            <div className="mt-4 p-4 bg-slate-50 border border-slate-100 rounded-md break-inside-avoid">
               <div className="text-xs text-teal-700 font-semibold mb-1">
                 Remarks
               </div>
@@ -134,7 +137,7 @@ const Template2 = ({ data }) => {
 
           {/* BANK DETAILS */}
           {(data.accountName || data.accountNumber || data.accountIfscCode) && (
-            <div className="mt-4 p-4 bg-white border border-slate-100 rounded-md">
+            <div className="mt-4 p-4 bg-white border border-slate-100 rounded-md break-inside-avoid">
               <div className="text-xs text-teal-700 font-semibold mb-2">
                 Bank Account Details
               </div>
@@ -164,7 +167,7 @@ const Template2 = ({ data }) => {
 
         {/* RIGHT: Totals card */}
         <div className="flex flex-col gap-4">
-          <div className="sticky top-6 bg-white border border-slate-100 rounded-md p-4 shadow-sm">
+          <div className="bg-white border border-slate-100 rounded-md p-4 shadow-sm break-inside-avoid print:static">
             <div className="text-xs text-slate-500">Summary</div>
 
             <div className="mt-3 space-y-3 text-sm">

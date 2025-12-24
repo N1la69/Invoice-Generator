@@ -1,6 +1,7 @@
 import { Trash2 } from "lucide-react";
 import { useContext, useEffect } from "react";
 import { AppContext } from "../context/AppContext";
+import { assets } from "../assets";
 
 const InvoiceForm = () => {
   const { invoiceData, setInvoiceData } = useContext(AppContext);
@@ -101,7 +102,7 @@ const InvoiceForm = () => {
             className="cursor-pointer bg-slate-100 border border-slate-300 rounded-lg p-3 flex items-center justify-center h-28 w-28 hover:bg-slate-200 transition"
           >
             <img
-              src={invoiceData.logo ? invoiceData.logo : ""}
+              src={invoiceData.logo ? invoiceData.logo : assets.placeholder}
               alt="img_ip"
               width={98}
               className="object-contain"

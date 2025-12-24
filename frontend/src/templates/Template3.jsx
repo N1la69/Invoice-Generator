@@ -1,8 +1,11 @@
 const Template3 = ({ data }) => {
   return (
-    <div className="mx-auto my-6 w-full max-w-4xl bg-white border border-slate-100 rounded-lg shadow-sm p-6">
+    <div
+      className="mx-auto my-0 bg-white shadow-md border border-slate-100 print:shadow-none"
+      style={{ width: "210mm", minHeight: "297mm", padding: "16mm" }}
+    >
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
+      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6 break-inside-avoid">
         <div className="flex items-start gap-4">
           {data.companyLogo && (
             <div className="shrink-0">
@@ -48,7 +51,7 @@ const Template3 = ({ data }) => {
       </div>
 
       {/* Shipping / Billing */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 break-inside-avoid">
         {data.shippingName && data.shippingPhone && data.shippingAddress ? (
           <div className="p-3 border border-slate-100 rounded-md bg-slate-50">
             <div className="text-sm font-semibold text-slate-800 mb-2">
@@ -79,7 +82,7 @@ const Template3 = ({ data }) => {
       </div>
 
       {/* Items table */}
-      <div className="mb-6 overflow-x-auto">
+      <div className="mb-6 overflow-x-auto break-inside-auto">
         <table className="min-w-full border-separate [border-spacing:0]">
           <thead>
             <tr>
@@ -105,7 +108,10 @@ const Template3 = ({ data }) => {
               const lineTotal = qty * rate;
 
               return (
-                <tr key={i} className="even:bg-white odd:bg-slate-50">
+                <tr
+                  key={i}
+                  className="even:bg-white odd:bg-slate-50 break-inside-avoid"
+                >
                   <td className="px-4 py-3 align-top text-sm text-slate-700">
                     {item.name}
                   </td>
@@ -128,7 +134,7 @@ const Template3 = ({ data }) => {
       </div>
 
       {/* Totals centered */}
-      <div className="flex justify-center mb-6">
+      <div className="flex justify-center mb-6 break-inside-avoid">
         <div className="w-full max-w-sm bg-slate-50 border border-slate-100 rounded-md p-4">
           <div className="flex justify-between text-sm text-slate-700 mb-2">
             <span>Subtotal</span>
@@ -159,9 +165,9 @@ const Template3 = ({ data }) => {
       </div>
 
       {/* Bank & Notes */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 break-inside-avoid">
         {(data.accountName || data.accountNumber || data.accountIfscCode) && (
-          <div className="p-4 border border-slate-100 rounded-md">
+          <div className="p-4 border border-slate-100 rounded-md break-inside-avoid">
             <div className="text-sm font-semibold text-slate-800 mb-2">
               Bank Account Details
             </div>
